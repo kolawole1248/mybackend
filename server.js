@@ -1,40 +1,50 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
-const expressLayouts = require("express-ejs-layouts")
+const express = require('express');
+const session = require('express-session');
+const flash = require('express-flash');
+const static = require('./routes/static'); // Adjust the path as necessary
+const baseController = require('./controllers/baseController'); // Adjust the path as necessary
+const app = express();
 
-/* ***********************
- * Routes
- *************************/
+const utilities = require("./utilities")
+
+
+// Session configuration (REQUIRED for flash messages)
+app.use(session({
+  secret: 'your-secret-key-here', // Change this to a random string
+  resave: false,
+  saveUninitialized: true
+}));
+
 app.use(static)
 
-// Index route
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" })
-})
+// Flash middleware (must come after session)
+app.use(flash());
 
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
+// Make flash messages available to all templates
+app.use((req, res, next) => {
+  res.locals.messages = req.flash(); // This creates the messages() function
+  next();
+});
 
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
-const port = process.env.PORT
-const host = process.env.HOST
+// Set up EJS view engine
+app.set('view engine', 'ejs');
+app.set('views', './views'); // Ensure this path is correct
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+// Your route
+app.get("/", async function(req, res){
+
+  
+    const nav = await utilities.getNav()
+    
+     res.render("layouts/layout", {title: "Home", nav})
+
+    
+});
+
+
+
+// Start server
+const PORT = 5500;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
