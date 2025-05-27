@@ -547,3 +547,40 @@ footer {
     color: #fff;
   }
 }
+
+
+/* Inventory Detail Styles */
+.inventory-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.detail-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.detail-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #006400;
+}
+
+@media (max-width: 768px) {
+  .inventory-detail {
+    flex-direction: column;
+  }
+}

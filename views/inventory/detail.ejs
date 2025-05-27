@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .inventory-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background to make text readable */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.detail-image {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.detail-info {
+  flex: 2;
+  min-width: 300px;
+}
+
+.detail-info h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #008000; /* Green color for price */
+}
+
+.mileage, .color {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Add some responsiveness */
+@media (max-width: 768px) {
+  .inventory-detail {
+    flex-direction: column;
+  }
+  .detail-image {
+    max-width: 100%;
+  }
+}
+  </style>
+</head>
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/header') %>
+  
+  <main>
+    <%- detailHTML %>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+
+  <script>
+    function extractWordAfterLastSlash(str) {
+  const lastSlashIndex = str.lastIndexOf('/');
+  if (lastSlashIndex === -1) {
+    return str; // Return the entire string if there's no slash
+  }
+  return str.substring(lastSlashIndex + 1);
+}
+
+const src = document.querySelector('#vehicleImage').src
+ document.querySelector('#vehicleImage').src = `/images/vehicles/${extractWordAfterLastSlash(src)}`;
+  </script>
+</body>
+</html>

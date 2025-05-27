@@ -7,6 +7,14 @@ const app = express();
 
 const utilities = require("./utilities")
 
+const errorHandler = require('./middleware/errorHandler');
+
+// After all other middleware and routes
+app.use(errorHandler);
+
+const errorRouter = require('./routes/errorRoute');
+app.use('/', errorRouter);
+
 
 // Session configuration (REQUIRED for flash messages)
 app.use(session({
@@ -41,6 +49,8 @@ app.get("/", async function(req, res){
     
 });
 
+app.use('/inv/type', require('./routes/inventoryRoute')); // Adjust the path as necessary
+
 
 
 // Start server
@@ -48,3 +58,4 @@ const PORT = 5500;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
