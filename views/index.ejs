@@ -1,6 +1,24 @@
 
 <section id="main-page">
     <h1>Welcome to CSE Motors!</h1>
+    <!-- Flash Messages -->
+  <% if (messages.info && messages.info.length) { %>
+    <div class="flash-message info">
+      <%= messages.info[0] %>
+    </div>
+  <% } %>
+  
+  <% if (messages.error && messages.error.length) { %>
+    <div class="flash-message error">
+      <%= messages.error[0] %>
+    </div>
+  <% } %>
+
+  <% if (messages.success && messages.success.length) { %>
+    <div class="flash-message success">
+      <%= messages.success[0] %>
+    </div>
+  <% } %>
     <div class="hero">
       <picture>
         <source

@@ -1,0 +1,86 @@
+.register-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.password-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0066cc;
+}
+
+.password-requirements {
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.password-requirements ul {
+    margin: 0.5rem 0 0 1rem;
+    padding: 0;
+}
+
+.btn-register {
+    background: #0066cc;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-register:hover {
+    background: #0052a3;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.flash-notice {
+    background: #e2f0fd;
+    color: #004085;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}

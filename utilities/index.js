@@ -1,4 +1,6 @@
 const invModel = require("../models/inventory-model");
+
+
 const Util = {};
 
 /* ************************
@@ -45,5 +47,20 @@ Util.buildInventoryDetail = function (data) {
   `;
 };
 
-// Single export statement
+/* ************************
+ * Error handling wrapper for async routes
+ * @param {Function} fn - Async controller function
+ * @returns {Function} - Wrapped function with error handling
+ ************************** */
+Util.handleErrors = (fn) => {
+  return async function(req, res, next) {
+    try {
+      await fn(req, res, next);
+    } catch (error) {
+      console.error("Error in route handler:", error);
+      next(error);
+    }
+  };
+};
+
 module.exports = Util;

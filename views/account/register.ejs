@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/register.css">
+    <style>
+        /* Validation styling */
+        input:required:invalid, input:focus:invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        input:required:valid {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+        .password-requirements {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        .password-requirements ul {
+            margin: 5px 0 0 20px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="register-container">
+        <h1><%= title %></h1>
+        
+        <% if (messages && messages.error) { %>
+            <div class="flash-error"><%= messages.error %></div>
+        <% } %>
+        
+        <% if (messages && messages.notice) { %>
+            <div class="flash-notice"><%= messages.notice %></div>
+        <% } %>
+
+        <form action="/account/register" method="post" class="register-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            
+            <div class="form-group">
+                <label for="account_firstname">First Name</label>
+                <input type="text" id="account_firstname" name="account_firstname" 
+                       value="<%= formData && formData.account_firstname || '' %>" 
+                       required
+                       minlength="2"
+                       maxlength="50"
+                       pattern="[A-Za-z\s'-]+"
+                       title="Only letters, spaces, hyphens, and apostrophes allowed">
+            </div>
+            
+            <div class="form-group">
+                <label for="account_lastname">Last Name</label>
+                <input type="text" id="account_lastname" name="account_lastname"
+                       value="<%= formData && formData.account_lastname || '' %>" 
+                       required
+                       minlength="2"
+                       maxlength="50"
+                       pattern="[A-Za-z\s'-]+"
+                       title="Only letters, spaces, hyphens, and apostrophes allowed">
+            </div>
+            
+            <div class="form-group">
+                <label for="account_email">Email</label>
+                <input type="email" id="account_email" name="account_email"
+                       value="<%= formData && formData.account_email || '' %>" 
+                       required
+                       placeholder="example@domain.com"
+                       title="Please enter a valid email address">
+            </div>
+            
+            <div class="form-group password-group">
+                <label for="account_password">Password</label>
+                <input type="password" id="account_password" name="account_password" 
+                       required
+                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                       title="Must contain at least 12 characters, including uppercase, lowercase, number, and special character"
+                       oninvalid="this.setCustomValidity('Password must be at least 12 characters with uppercase, lowercase, number, and special character')"
+                       oninput="this.setCustomValidity('')">
+                
+                <button type="button" class="toggle-password">Show</button>
+                
+                <div class="password-requirements">
+                    <p><strong>Password Requirements:</strong></p>
+                    <ul>
+                        <li>Minimum 12 characters</li>
+                        <li>At least 1 uppercase letter (A-Z)</li>
+                        <li>At least 1 lowercase letter (a-z)</li>
+                        <li>At least 1 number (0-9)</li>
+                        <li>At least 1 special character (!@#$%^&*)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-register">Register</button>
+            
+            <div class="login-link">
+                <p>Already have an account? <a href="/account/login">Login</a></p>
+            </div>
+        </form>
+    </main>
+
+    <%- include('../partials/footer') %>
+    <script src="/javascripts/register.js"></script>
+</body>
+</html>
